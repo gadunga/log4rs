@@ -3,7 +3,7 @@
 //! Requires the `console_appender` feature.
 
 use log::Record;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
 use std::error::Error;
 use std::fmt;
@@ -13,15 +13,15 @@ use crate::append::Append;
 use crate::encode::pattern::PatternEncoder;
 use crate::encode::writer::console::{ConsoleWriter, ConsoleWriterLock};
 use crate::encode::writer::simple::SimpleWriter;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::encode::EncoderConfig;
 use crate::encode::{self, Encode, Style};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 use crate::priv_io::{StdWriter, StdWriterLock};
 
 /// The console appender's configuration.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ConsoleAppenderConfig {
@@ -29,7 +29,7 @@ pub struct ConsoleAppenderConfig {
     encoder: Option<EncoderConfig>,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 enum ConfigTarget {
     #[serde(rename = "stdout")]
@@ -199,10 +199,10 @@ pub enum Target {
 /// encoder:
 ///   kind: pattern
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct ConsoleAppenderDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for ConsoleAppenderDeserializer {
     type Trait = dyn Append;
 

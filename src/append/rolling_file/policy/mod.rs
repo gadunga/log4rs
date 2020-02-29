@@ -3,7 +3,7 @@ use std::error::Error;
 use std::fmt;
 
 use crate::append::rolling_file::LogFile;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::Deserializable;
 
 #[cfg(feature = "compound_policy")]
@@ -18,7 +18,7 @@ pub trait Policy: Sync + Send + 'static + fmt::Debug {
     fn process(&self, log: &mut LogFile) -> Result<(), Box<dyn Error + Sync + Send>>;
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserializable for dyn Policy {
     fn name() -> &'static str {
         "policy"

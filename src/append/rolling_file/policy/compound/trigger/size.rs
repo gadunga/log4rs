@@ -2,21 +2,21 @@
 //!
 //! Requires the `size_trigger` feature.
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde::de;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
 use std::error::Error;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use std::fmt;
 
 use crate::append::rolling_file::policy::compound::trigger::Trigger;
 use crate::append::rolling_file::LogFile;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 
 /// Configuration for the size trigger.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SizeTriggerConfig {
@@ -24,7 +24,7 @@ pub struct SizeTriggerConfig {
     limit: u64,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 fn deserialize_limit<'de, D>(d: D) -> Result<u64, D::Error>
 where
     D: de::Deserializer<'de>,
@@ -134,10 +134,10 @@ impl Trigger for SizeTrigger {
 /// # bytes if not specified. Required.
 /// limit: 10 mb
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct SizeTriggerDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for SizeTriggerDeserializer {
     type Trait = dyn Trigger;
 

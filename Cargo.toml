@@ -10,9 +10,9 @@ keywords = ["log", "logger", "logging", "log4"]
 edition = '2018'
 
 [features]
-default = ["all_components", "file", "yaml_format"]
+default = ["all_components", "extern_config", "yaml_format"]
 
-file = ["humantime", "serde", "serde_derive", "serde-value", "typemap", "log/serde"]
+extern_config = ["humantime", "serde", "serde_derive", "serde-value", "typemap", "log/serde"]
 yaml_format = ["serde_yaml"]
 json_format = ["serde_json"]
 toml_format = ["toml"]

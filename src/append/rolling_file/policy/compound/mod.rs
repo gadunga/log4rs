@@ -1,27 +1,27 @@
 //! The compound rolling policy.
 //!
 //! Requires the `compound_policy` feature.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde::{self, de};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_value::Value;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use std::collections::BTreeMap;
 use std::error::Error;
 
 use crate::append::rolling_file::policy::compound::roll::Roll;
 use crate::append::rolling_file::policy::Policy;
 use crate::append::rolling_file::LogFile;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 
 pub mod roll;
 pub mod trigger;
 
 /// Configuration for the compound policy.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct CompoundPolicyConfig {
@@ -29,13 +29,13 @@ pub struct CompoundPolicyConfig {
     roller: Roller,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 struct Trigger {
     kind: String,
     config: Value,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl<'de> serde::Deserialize<'de> for Trigger {
     fn deserialize<D>(d: D) -> Result<Trigger, D::Error>
     where
@@ -55,13 +55,13 @@ impl<'de> serde::Deserialize<'de> for Trigger {
     }
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 struct Roller {
     kind: String,
     config: Value,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl<'de> serde::Deserialize<'de> for Roller {
     fn deserialize<D>(d: D) -> Result<Roller, D::Error>
     where
@@ -135,10 +135,10 @@ impl Policy for CompoundPolicy {
 ///   # The remainder of the configuration is passed to the roller's
 ///   # deserializer, and will vary based on the kind of roller.
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct CompoundPolicyDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for CompoundPolicyDeserializer {
     type Trait = dyn Policy;
 

@@ -4,7 +4,7 @@
 
 use log::Record;
 use parking_lot::Mutex;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
 use std::error::Error;
 use std::fmt;
@@ -16,13 +16,13 @@ use crate::append::Append;
 use crate::encode::pattern::PatternEncoder;
 use crate::encode::writer::simple::SimpleWriter;
 use crate::encode::Encode;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::encode::EncoderConfig;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 
 /// The file appender's configuration.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct FileAppenderConfig {
@@ -130,10 +130,10 @@ impl FileAppenderBuilder {
 /// encoder:
 ///   kind: pattern
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct FileAppenderDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for FileAppenderDeserializer {
     type Trait = dyn Append;
 

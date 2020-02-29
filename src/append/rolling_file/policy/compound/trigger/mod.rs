@@ -4,7 +4,7 @@ use std::error::Error;
 use std::fmt;
 
 use crate::append::rolling_file::LogFile;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::Deserializable;
 
 #[cfg(feature = "size_trigger")]
@@ -16,7 +16,7 @@ pub trait Trigger: fmt::Debug + Send + Sync + 'static {
     fn trigger(&self, file: &LogFile) -> Result<bool, Box<dyn Error + Sync + Send>>;
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserializable for dyn Trigger {
     fn name() -> &'static str {
         "trigger"

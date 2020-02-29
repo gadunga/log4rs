@@ -114,7 +114,7 @@
 //! ```
 //!
 //! ```no_run
-//! # #[cfg(feature = "file")]
+//! # #[cfg(feature = "extern_config")]
 //! # fn f() {
 //! log4rs::init_file("log4rs.yml", Default::default()).unwrap();
 //! # }
@@ -192,7 +192,7 @@ use std::io;
 use std::io::prelude::*;
 use std::sync::Arc;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub use crate::priv_file::{init_file, load_config_file, Error};
 
 use crate::append::Append;
@@ -202,10 +202,10 @@ use crate::filter::Filter;
 pub mod append;
 pub mod config;
 pub mod encode;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub mod file;
 pub mod filter;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 mod priv_file;
 #[cfg(feature = "console_writer")]
 mod priv_io;

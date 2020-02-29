@@ -31,7 +31,7 @@ use chrono::{
 };
 use log::{Level, Record};
 use serde::ser::{self, Serialize, SerializeMap};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
 use serde_derive::Serialize;
 use std::error::Error;
@@ -40,11 +40,11 @@ use std::option;
 use std::thread;
 
 use crate::encode::{Encode, Write, NEWLINE};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 
 /// The JSON encoder's configuration
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct JsonEncoderConfig {
@@ -154,10 +154,10 @@ impl ser::Serialize for Mdc {
 /// ```yaml
 /// kind: json
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct JsonEncoderDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for JsonEncoderDeserializer {
     type Trait = dyn Encode;
 

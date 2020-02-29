@@ -120,7 +120,7 @@
 
 use chrono::{Local, Utc};
 use log::{Level, Record};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
 use std::default::Default;
 use std::error::Error;
@@ -131,13 +131,13 @@ use std::thread;
 
 use crate::encode::pattern::parser::{Alignment, Parameters, Parser, Piece};
 use crate::encode::{self, Color, Encode, Style, NEWLINE};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 
 mod parser;
 
 /// The pattern encoder's configuration.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PatternEncoderConfig {
@@ -655,10 +655,10 @@ impl PatternEncoder {
 /// # "{d} {l} {t} - {m}{n}".
 /// pattern: "{d} {l} {t} - {m}{n}"
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct PatternEncoderDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for PatternEncoderDeserializer {
     type Trait = dyn Encode;
 

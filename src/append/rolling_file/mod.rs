@@ -18,11 +18,11 @@
 
 use log::Record;
 use parking_lot::Mutex;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_value::Value;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use std::collections::BTreeMap;
 use std::error::Error;
 use std::fmt;
@@ -32,16 +32,16 @@ use std::path::{Path, PathBuf};
 
 use crate::append::Append;
 use crate::encode::pattern::PatternEncoder;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::encode::EncoderConfig;
 use crate::encode::{self, Encode};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 
 pub mod policy;
 
 /// Configuration for the rolling file appender.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct RollingFileAppenderConfig {
@@ -51,13 +51,13 @@ pub struct RollingFileAppenderConfig {
     policy: Policy,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 struct Policy {
     kind: String,
     config: Value,
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl<'de> serde::Deserialize<'de> for Policy {
     fn deserialize<D>(d: D) -> Result<Policy, D::Error>
     where
@@ -307,10 +307,10 @@ impl RollingFileAppenderBuilder {
 ///   roller:
 ///     kind: delete
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct RollingFileAppenderDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for RollingFileAppenderDeserializer {
     type Trait = dyn Append;
 

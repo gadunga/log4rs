@@ -3,17 +3,17 @@
 //! Requires the `threshold_filter` feature.
 
 use log::{LevelFilter, Record};
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use serde_derive::Deserialize;
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use std::error::Error;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::{Deserialize, Deserializers};
 use crate::filter::{Filter, Response};
 
 /// The threshold filter's configuration.
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 #[derive(Deserialize)]
 pub struct ThresholdFilterConfig {
     level: LevelFilter,
@@ -52,10 +52,10 @@ impl Filter for ThresholdFilter {
 /// # The threshold log level to filter at. Required
 /// level: warn
 /// ```
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 pub struct ThresholdFilterDeserializer;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserialize for ThresholdFilterDeserializer {
     type Trait = dyn Filter;
 

@@ -4,7 +4,7 @@ use std::error::Error;
 use std::fmt;
 use std::path::Path;
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 use crate::file::Deserializable;
 
 #[cfg(feature = "delete_roller")]
@@ -24,7 +24,7 @@ pub trait Roll: fmt::Debug + Send + Sync + 'static {
     fn roll(&self, file: &Path) -> Result<(), Box<dyn Error + Sync + Send>>;
 }
 
-#[cfg(feature = "file")]
+#[cfg(feature = "extern_config")]
 impl Deserializable for dyn Roll {
     fn name() -> &'static str {
         "roller"
